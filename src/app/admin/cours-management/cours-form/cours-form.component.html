@@ -1,0 +1,54 @@
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h4>{{ isEditMode ? 'Modifier' : 'Créer' }} Un Cours</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="coursForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label class="form-label">Titre</label>
+                    <input type="text" formControlName="titre" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['titre'].errors }">
+                    <div *ngIf="submitted && f['titre'].errors" class="invalid-feedback">
+                        <div *ngIf="f['titre'].errors['required']">Titre requis</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea formControlName="description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date de début</label>
+                        <input type="date" formControlName="dateDebut" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['dateDebut'].errors }">
+                        <div *ngIf="submitted && f['dateDebut'].errors" class="invalid-feedback">
+                            <div *ngIf="f['dateDebut'].errors['required']">Date requise</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date de fin</label>
+                        <input type="date" formControlName="dateFin" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['dateFin'].errors }">
+                        <div *ngIf="submitted && f['dateFin'].errors" class="invalid-feedback">
+                            <div *ngIf="f['dateFin'].errors['required']">Date requise</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Formateur (Optionnel)</label>
+                    <select formControlName="formateurId" class="form-select">
+                        <option value="">-- Sélectionner un formateur --</option>
+                        <option *ngFor="let formateur of formateurs" [value]="formateur.id">
+                            {{ formateur.nom }} {{ formateur.prenom }} ({{ formateur.specialite }})
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-warning me-2">{{ isEditMode ? 'Enregistrer' : 'Créer' }}</button>
+                <button type="button" class="btn btn-secondary" routerLink="/admin/cours">Annuler</button>
+            </form>
+        </div>
+    </div>
+</div>

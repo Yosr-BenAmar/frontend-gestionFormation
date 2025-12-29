@@ -1,0 +1,48 @@
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>{{ isEditMode ? 'Modifier' : 'Ajouter' }} Un Étudiant</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="etudiantForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label class="form-label">Nom</label>
+                    <input type="text" formControlName="nom" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['nom'].errors }">
+                    <div *ngIf="submitted && f['nom'].errors" class="invalid-feedback">
+                        <div *ngIf="f['nom'].errors['required']">Nom requis</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Prénom</label>
+                    <input type="text" formControlName="prenom" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['prenom'].errors }">
+                    <div *ngIf="submitted && f['prenom'].errors" class="invalid-feedback">
+                        <div *ngIf="f['prenom'].errors['required']">Prénom requis</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" formControlName="email" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                        <div *ngIf="f['email'].errors['required']">Email requis</div>
+                        <div *ngIf="f['email'].errors['email']">Email invalide</div>
+                    </div>
+                </div>
+                <div class="mb-3" *ngIf="!isEditMode || f['password'].value">
+                    <label class="form-label">Mot de passe {{ isEditMode ? '(laisser vide pour ne pas changer)' : ''
+                        }}</label>
+                    <input type="password" formControlName="password" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                    <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                        <div *ngIf="f['password'].errors['required']">Mot de passe requis</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success me-2">{{ isEditMode ? 'Modifier' : 'Ajouter' }}</button>
+                <button type="button" class="btn btn-secondary" routerLink="/admin/etudiants">Annuler</button>
+            </form>
+        </div>
+    </div>
+</div>

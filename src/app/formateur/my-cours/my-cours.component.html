@@ -1,0 +1,18 @@
+<div class="container mt-4">
+    <h3>Mes Cours</h3>
+    <div class="row">
+        <div class="col-md-4 mb-4" *ngFor="let cours of cours_list">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cours.titre }}</h5>
+                    <p class="card-text">{{ cours.description }}</p>
+                    <p class="text-muted"><small>{{ cours.dateDebut | date }} - {{ cours.dateFin | date }}</small></p>
+                    <a [routerLink]="['notes', cours.id]" class="btn btn-outline-primary">Gérer les notes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="cours_list.length === 0">
+            <div class="alert alert-info">Aucun cours assigné.</div>
+        </div>
+    </div>
+</div>

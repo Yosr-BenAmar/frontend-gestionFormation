@@ -1,0 +1,67 @@
+/* formateur-list.component.css */
+/* Carte formulaire */
+.form-card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    background-color: #fdfdfd;
+    /* blanc cassé */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.form-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Entête de la carte */
+.form-card-header {
+    background: linear-gradient(135deg, #1E88E5, #42A5F5);
+    color: #fff;
+    font-weight: 600;
+    border-bottom: none;
+}
+
+/* Inputs */
+.custom-input {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.custom-input:focus {
+    border-color: #1E88E5;
+    box-shadow: 0 0 5px rgba(30, 136, 229, 0.3);
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: #1E88E5;
+    border-color: #1E88E5;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #1565C0;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Labels et feedback */
+.form-label {
+    font-weight: 500;
+    color: #212529;
+}
+
+.invalid-feedback {
+    font-size: 0.85rem;
+}

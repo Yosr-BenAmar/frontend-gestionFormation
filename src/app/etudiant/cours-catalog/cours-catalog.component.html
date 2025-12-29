@@ -1,0 +1,19 @@
+<div class="container mt-4">
+    <h3>Catalogue des cours</h3>
+    <div class="row">
+        <div class="col-md-4 mb-4" *ngFor="let cours of cours_list">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cours.titre }}</h5>
+                    <p class="card-text">{{ cours.description }}</p>
+                    <p class="text-muted"><small>{{ cours.dateDebut | date }} - {{ cours.dateFin | date }}</small></p>
+                    <p class="text-info" *ngIf="cours.formateur"><small>Formateur: {{ cours.formateur.nom }}</small></p>
+                    <button class="btn btn-outline-primary w-100" (click)="enroll(cours.id)">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="cours_list.length === 0">
+            <div class="alert alert-warning">Aucun cours disponible.</div>
+        </div>
+    </div>
+</div>

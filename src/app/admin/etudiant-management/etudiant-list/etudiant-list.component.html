@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Liste des Étudiants</h3>
+        <button class="btn btn-primary" routerLink="new">
+            <i class="bi bi-plus-lg"></i> Ajouter un étudiant
+        </button>
+    </div>
+
+    <div class="table-responsive bg-white shadow-sm rounded">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let etudiant of etudiants">
+                    <td>{{ etudiant.id }}</td>
+                    <td>{{ etudiant.nom }}</td>
+                    <td>{{ etudiant.prenom }}</td>
+                    <td>{{ etudiant.email }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-2" [routerLink]="['edit', etudiant.id]">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteEtudiant(etudiant.id)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="etudiants.length === 0">
+                    <td colspan="5" class="text-center py-4 text-muted">Aucu étudiant trouvé.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

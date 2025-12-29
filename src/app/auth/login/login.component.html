@@ -1,0 +1,206 @@
+<div class="login-wrapper">
+  <div class="login-content">
+    <div class="login-form-wrapper">
+      <div class="login-card">
+        <h1 class="login-title">Bienvenue</h1>
+        <p class="login-subtitle">Connectez-vous pour continuer</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" formControlName="email" placeholder="name@example.com"
+              [ngClass]="{'invalid': submitted && f['email'].errors}">
+            <div *ngIf="submitted && f['email'].errors" class="feedback">
+              <span *ngIf="f['email'].errors['required']">Email requis</span>
+              <span *ngIf="f['email'].errors['email']">Email invalide</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Mot de passe</label>
+            <input type="password" formControlName="password"
+              [ngClass]="{'invalid': submitted && f['password'].errors}">
+            <div *ngIf="submitted && f['password'].errors" class="feedback">
+              <span *ngIf="f['password'].errors['required']">Mot de passe requis</span>
+            </div>
+          </div>
+          <div *ngIf="error" class="form-error">{{error}}</div>
+          <button type="submit" class="btn-login" [disabled]="loading">
+            <span *ngIf="loading" class="spinner"></span>
+            Connexion
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="login-image-wrapper">
+      <img src="assets/images/login.jpg" alt="Login Illustration">
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Wrapper général */
+  .login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f2f5;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Conteneur flex pour formulaire + image */
+  .login-content {
+    display: flex;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    background: white;
+  }
+
+  /* Formulaire */
+  .login-form-wrapper {
+    flex: 1;
+    padding: 60px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-card {
+    width: 100%;
+  }
+
+  .login-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .login-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: #666;
+  }
+
+  /* Input styling */
+  .input-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: #555;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .input-group input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+    outline: none;
+  }
+
+  .invalid {
+    border-color: #ff4d4f;
+  }
+
+  .feedback {
+    color: #ff4d4f;
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  /* Error général */
+  .form-error {
+    color: #ff4d4f;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  /* Bouton */
+  .btn-login {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+    background: #6c63ff;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-login:hover {
+    background: #574fd6;
+  }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 8px;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Image */
+  .login-image-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .login-image-wrapper img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Responsive */
+  @media(max-width: 900px) {
+    .login-content {
+      flex-direction: column;
+    }
+
+    .login-form-wrapper,
+    .login-image-wrapper {
+      width: 100%;
+      height: 300px;
+    }
+
+    .login-image-wrapper img {
+      height: 100%;
+    }
+  }
+</style>

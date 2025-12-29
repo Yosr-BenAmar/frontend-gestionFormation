@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h4>Nouvelle Inscription</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label class="form-label">Étudiant</label>
+                    <select formControlName="etudiantId" class="form-select"
+                        [ngClass]="{ 'is-invalid': submitted && f['etudiantId'].errors }">
+                        <option value="">-- Sélectionner un étudiant --</option>
+                        <option *ngFor="let etudiant of etudiants" [value]="etudiant.id">
+                            {{ etudiant.nom }} {{ etudiant.prenom }} ({{ etudiant.email }})
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f['etudiantId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['etudiantId'].errors['required']">Étudiant requis</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cours</label>
+                    <select formControlName="coursId" class="form-select"
+                        [ngClass]="{ 'is-invalid': submitted && f['coursId'].errors }">
+                        <option value="">-- Sélectionner un cours --</option>
+                        <option *ngFor="let cours of coursList" [value]="cours.id">
+                            {{ cours.titre }} ({{ cours.dateDebut | date }} - {{ cours.dateFin | date }})
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f['coursId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['coursId'].errors['required']">Cours requis</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info me-2 text-white">Inscrire</button>
+                <button type="button" class="btn btn-secondary" routerLink="/admin/inscriptions">Annuler</button>
+            </form>
+        </div>
+    </div>
+</div>

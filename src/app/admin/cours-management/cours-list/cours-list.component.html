@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Liste des Cours</h3>
+        <button class="btn btn-primary" routerLink="new">
+            <i class="bi bi-plus-lg"></i> Créer un cours
+        </button>
+    </div>
+
+    <div class="table-responsive bg-white shadow-sm rounded">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Dates</th>
+                    <th>Formateur</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cours of cours_list">
+                    <td>{{ cours.id }}</td>
+                    <td>{{ cours.titre }}</td>
+                    <td>{{ cours.description }}</td>
+                    <td>
+                        {{ cours.dateDebut | date:'shortDate' }} - {{ cours.dateFin | date:'shortDate' }}
+                    </td>
+                    <td>
+                        <span *ngIf="cours.formateur">{{ cours.formateur.nom }} {{ cours.formateur.prenom }}</span>
+                        <span *ngIf="!cours.formateur" class="text-muted">Non assigné</span>
+                    </td>
+                    <td>
+                        <!-- Assign formateur is handled in edit form or separate modal -->
+                        <button class="btn btn-sm btn-outline-primary" [routerLink]="['edit', cours.id]">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="cours_list.length === 0">
+                    <td colspan="6" class="text-center py-4 text-muted">Aucu cours trouvé.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
