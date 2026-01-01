@@ -1,1 +1,84 @@
 /* my-inscriptions.component.css */
+/* ===== GLOBAL ===== */
+.inscriptions-dashboard {
+    background: #f4f6f9;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+/* HEADER */
+.header .dashboard-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.3rem;
+}
+
+.header .dashboard-subtitle {
+    font-size: 0.95rem;
+    color: #6b7280;
+}
+
+/* TABLE CARD */
+.table-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+}
+
+/* TABLE STYLING */
+.table-header {
+    background: #f3f4f6;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.table tbody tr {
+    transition: background 0.2s, transform 0.2s;
+}
+
+.table tbody tr:hover {
+    background: #f9fafb;
+    transform: translateX(2px);
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+    padding: 0.75rem 1rem;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+/* NOTE BADGES */
+.note-badge {
+    display: inline-block;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .dashboard-title {
+        font-size: 1.6rem;
+    }
+
+    .table-card {
+        padding: 1rem;
+    }
+
+    .table td,
+    .table th {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
