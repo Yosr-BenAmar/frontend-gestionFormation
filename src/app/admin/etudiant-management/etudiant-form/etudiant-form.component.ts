@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EtudiantService } from '../../services/etudiant.service';
+import { EtudiantService } from 'src/app/services/etudiant.service';
 import { Role } from 'src/app/shared/models/models';
 
 @Component({

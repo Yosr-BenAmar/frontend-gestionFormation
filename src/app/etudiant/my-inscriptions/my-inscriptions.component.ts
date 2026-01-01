@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EtudiantSpaceService } from '../services/etudiant-space.service';
 import { Inscription, Note } from '../../shared/models/models';
+import { EtudiantService } from 'src/app/services/etudiant.service';
 
 @Component({
     selector: 'app-my-inscriptions',
@@ -13,17 +13,24 @@ export class MyInscriptionsComponent implements OnInit {
     // Map coursId or Inscription -> Note
     noteMap: { [coursId: number]: Note } = {};
 
-    constructor(private etudiantService: EtudiantSpaceService) { }
+    constructor(private etudiantService: EtudiantService) { }
 
     ngOnInit(): void {
-        this.etudiantService.getMyInscriptions().subscribe(data => this.inscriptions = data);
-        this.etudiantService.getMyNotes().subscribe(data => {
-            this.notes = data;
-            data.forEach(n => {
-                if (n.cours && n.cours.id) {
-                    this.noteMap[n.cours.id] = n;
-                }
-            });
+        this.etudiantService.getMyInscriptions().subscribe({
+            next: data => this.inscriptions = data,
+            error: e => console.error('Erreur GET inscriptions', e)
+        });
+
+        this.etudiantService.getMyNotes().subscribe({
+            next: data => {
+                this.notes = data;
+                data.forEach(n => {
+                    if (n.cours && n.cours.id) {
+                        this.noteMap[n.cours.id] = n;
+                    }
+                });
+            },
+            error: e => console.error('Erreur GET notes', e)
         });
     }
 
@@ -31,4 +38,5 @@ export class MyInscriptionsComponent implements OnInit {
         if (!coursId) return undefined;
         return this.noteMap[coursId];
     }
+
 }

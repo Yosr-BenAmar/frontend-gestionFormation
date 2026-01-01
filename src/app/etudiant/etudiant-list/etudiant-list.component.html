@@ -1,0 +1,8 @@
+<p>etudiant-list works!</p>
+<h2>Liste des étudiants</h2>
+
+<ul>
+    <li *ngFor="let e of etudiants">
+        {{ e.id }} - {{ e.nom }} {{ e.prenom }} ({{ e.email }})
+    </li>
+</ul>

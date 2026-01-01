@@ -1,104 +1,206 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-etudiant-dashboard',
   template: `
-    <div class="container mt-4">
-      <h2 class="dashboard-title">Bonjour, Étudiant</h2>
-      <div class="row g-4">
-        <div class="col-md-6 col-sm-12">
-          <div class="card student-card">
-            <div class="card-header student-card-header">
-              <img src="https://cdn-icons-png.flaticon.com/512/5402/5402751.png" alt="Catalogue" class="card-icon"/>
-              <span>Catalogue des cours</span>
+    <div class="dashboard container-fluid py-4">
+
+      <!-- Header -->
+      <div class="dashboard-header mb-4">
+        <div>
+          <h2 class="dashboard-title">
+            Bonjour, <span>{{ user?.nom }}</span>
+          </h2>
+          <p class="dashboard-subtitle">
+            Accédez à vos cours et suivez votre progression
+          </p>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div class="row g-4 justify-content-center">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex">
+          <div class="dashboard-card blue">
+            <div class="card-top">
+              <div class="card-icon">📚</div>
             </div>
-            <div class="card-body">
-              <p class="card-text">Parcourir et s'inscrire aux cours disponibles.</p>
-              <a routerLink="catalog" class="btn btn-primary btn-sm">Voir le catalogue</a>
+
+            <div class="card-content">
+              <h5 class="card-title">Catalogue des cours</h5>
+              <p class="card-text">
+                Parcourir et s'inscrire aux cours disponibles.
+              </p>
+            </div>
+
+            <div class="card-footer">
+              <a routerLink="catalog" class="card-action">
+                Voir le catalogue <span>→</span>
+              </a>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="card student-card">
-            <div class="card-header student-card-header">
-              <img src="https://cdn-icons-png.flaticon.com/512/7505/7505390.png" alt="Inscriptions" class="card-icon"/>
-              <span>Mes Inscriptions & Notes</span>
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex">
+          <div class="dashboard-card green">
+            <div class="card-top">
+              <div class="card-icon">🎓</div>
             </div>
-            <div class="card-body">
-              <p class="card-text">Voir vos cours actuels et vos résultats.</p>
-              <a routerLink="inscriptions" class="btn btn-primary btn-sm">Consulter</a>
+
+            <div class="card-content">
+              <h5 class="card-title">Mes inscriptions & notes</h5>
+              <p class="card-text">
+                Consulter vos cours actuels et vos résultats.
+              </p>
+            </div>
+
+            <div class="card-footer">
+              <a routerLink="inscriptions" class="card-action">
+                Consulter <span>→</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
+
       <router-outlet></router-outlet>
     </div>
   `,
   styles: [`
-    .dashboard-title {
-      font-weight: 700;
-      color: #0d3b66;
-      margin-bottom: 2rem;
-      font-size: 1.8rem;
-      letter-spacing: 0.5px;
+    /* ===== GLOBAL ===== */
+    .dashboard {
+      background: #f4f6f9;
+      min-height: 100vh;
     }
 
-    .student-card {
-      border-radius: 12px;
-      background-color: #fdfdfd;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
+    /* ===== HEADER ===== */
+    .dashboard-header {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .dashboard-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 0.2rem;
+    }
+
+    .dashboard-title span {
+      color: #2563eb;
+    }
+
+    .dashboard-subtitle {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    /* ===== CARD ===== */
+    .dashboard-card {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.35s ease;
+      position: relative;
       overflow: hidden;
     }
-    .student-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+
+    .dashboard-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background: var(--accent);
     }
 
-    .student-card-header {
+    .dashboard-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ===== CARD TOP ===== */
+    .card-top {
+      width: 100%;
       display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      padding: 1rem;
-      background: linear-gradient(135deg, #1E88E5, #42A5F5);
-      color: #fff;
-      font-weight: 600;
-      font-size: 1.15rem;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
+      justify-content: center;
     }
 
     .card-icon {
-      width: 36px;
-      height: 36px;
+      font-size: 2.4rem;
     }
 
-    .card-body {
-      padding: 1rem;
+    /* ===== CARD CONTENT ===== */
+    .card-content {
+      margin-top: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.4rem;
     }
 
     .card-text {
-      color: #495057;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #6b7280;
+      line-height: 1.4;
     }
 
-    .btn-primary {
-      background-color: #1E88E5;
-      border-color: #1E88E5;
-      font-weight: 500;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-    .btn-primary:hover {
-      background-color: #1565C0;
-      transform: translateY(-2px);
+    /* ===== CARD FOOTER ===== */
+    .card-footer {
+      margin-top: 1.4rem;
+      display: flex;
+      justify-content: center;
     }
 
+    .card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--accent);
+      transition: gap 0.3s ease;
+    }
+
+    .card-action:hover {
+      gap: 0.7rem;
+    }
+
+    /* ===== COLOR THEMES ===== */
+    .blue { --accent: #2563eb; }
+    .green { --accent: #16a34a; }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .dashboard-title { font-size: 1.5rem; }
-      .student-card-header { font-size: 1rem; gap: 0.5rem; }
-      .card-icon { width: 32px; height: 32px; }
+      .dashboard-title {
+        font-size: 1.6rem;
+      }
+
+      .dashboard-card {
+        padding: 1.3rem;
+      }
     }
   `]
 })
-export class EtudiantDashboardComponent { }
+export class EtudiantDashboardComponent implements OnInit {
+  user: any;
+
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    this.user = this.authService.currentUserValue;
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormateurService } from '../../services/formateur.service';
+import { FormateurService } from 'src/app/services/formateur.service';
 import { Formateur } from 'src/app/shared/models/models';
 
 @Component({

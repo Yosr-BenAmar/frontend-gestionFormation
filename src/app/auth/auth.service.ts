@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, map } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { User, Role } from '../shared/models/models';
-import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { User, Role } from 'src/app/shared/models/models';
+import { delay, map } from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
     private currentUserSubject: BehaviorSubject<User | null>;
     public currentUser: Observable<User | null>;
 
-    constructor(private http: HttpClient, private router: Router) {
-        const storedUser = localStorage.getItem('currentUser');
-        this.currentUserSubject = new BehaviorSubject<User | null>(storedUser ? JSON.parse(storedUser) : null);
+    // Liste simulée d'utilisateurs
+    private users: User[] = [
+        { id: 1, email: 'admin@test.com', password: 'admin', role: Role.ADMIN, nom: 'Admin', prenom: 'User' },
+        { id: 2, email: 'etudiant@test.com', password: 'etudiant', role: Role.ETUDIANT, nom: 'Jean', prenom: 'Dupont' },
+        { id: 3, email: 'formateur@test.com', password: 'formateur', role: Role.FORMATEUR, nom: 'Paul', prenom: 'Durand' },
+    ];
+
+    constructor() {
+        this.currentUserSubject = new BehaviorSubject<User | null>(
+            JSON.parse(localStorage.getItem('currentUser') || 'null')
+        );
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
@@ -22,38 +26,20 @@ export class AuthService {
         return this.currentUserSubject.value;
     }
 
+    // Login simulé
     login(email: string, password: string): Observable<User> {
-        return this.http.post<any>(`${environment.apiUrl}/auth/login`, { email, password })
-            .pipe(map(response => {
-                // Assuming the response contains the token and user details
-                // Adjust based on actual backend response structure
-                const user: User = {
-                    email: email,
-                    role: response.role, // Backend must return role
-                    token: response.token,
-                    // Add other fields if backend provides them
-                    id: response.id,
-                    nom: response.nom,
-                    prenom: response.prenom
-                };
-
-                if (user && user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
-                }
-                return user;
-            }));
+        const user = this.users.find(u => u.email === email && u.password === password);
+        if (user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+            return of(user).pipe(delay(500)); // simuler un petit délai
+        } else {
+            return throwError(() => ({ error: { message: 'Email ou mot de passe incorrect' } }));
+        }
     }
 
-    logout() {
-        // remove user from local storage to log user out
+    logout(): void {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
-        this.router.navigate(['/login']);
-    }
-
-    hasRole(role: Role): boolean {
-        const user = this.currentUserValue;
-        return user ? user.role === role : false;
     }
 }

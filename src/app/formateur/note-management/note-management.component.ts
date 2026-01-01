@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormateurSpaceService } from '../services/formateur-space.service';
 import { Etudiant, Note, Cours } from '../../shared/models/models';
+import { FormateurService } from 'src/app/services/formateur.service';
 
 @Component({
     selector: 'app-note-management',
@@ -17,7 +17,7 @@ export class NoteManagementComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private formateurService: FormateurSpaceService
+        private formateurService: FormateurService
     ) { }
 
     ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EtudiantSpaceService } from '../services/etudiant-space.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Cours } from '../../shared/models/models';
+import { EtudiantService } from 'src/app/services/etudiant.service';
 
 @Component({
     selector: 'app-cours-catalog',
@@ -12,23 +12,27 @@ export class CoursCatalogComponent implements OnInit {
     cours_list: Cours[] = [];
 
     constructor(
-        private etudiantService: EtudiantSpaceService,
+        private etudiantService: EtudiantService,
         private authService: AuthService
     ) { }
-
     ngOnInit(): void {
-        this.etudiantService.getAvailableCours().subscribe(data => this.cours_list = data);
+        this.etudiantService.getAvailableCours().subscribe({
+            next: data => {
+                console.log('Cours récupérés depuis le back :', data);
+                this.cours_list = data;
+            },
+            error: e => console.error('Erreur GET cours', e)
+        });
     }
 
     enroll(coursId: number | undefined): void {
         if (!coursId) return;
-
-        const user = this.authService.currentUserValue;
+        const user = this.authService.currentUserValue; // ton utilisateur connecté
         if (user && user.id) {
             if (confirm('Confirmer l\'inscription à ce cours ?')) {
                 this.etudiantService.enroll(coursId, user.id).subscribe({
                     next: () => alert('Inscription réussie !'),
-                    error: (e) => {
+                    error: e => {
                         console.error(e);
                         alert('Erreur lors de l\'inscription. Peut-être êtes-vous déjà inscrit ?');
                     }
@@ -38,4 +42,5 @@ export class CoursCatalogComponent implements OnInit {
             alert('Utilisateur non identifié.');
         }
     }
+
 }

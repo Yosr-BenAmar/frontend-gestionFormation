@@ -11,34 +11,56 @@
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Titre</th>
+                    <th>Nom</th>
                     <th>Description</th>
-                    <th>Dates</th>
                     <th>Formateur</th>
+                    <th>Dates</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let cours of cours_list">
                     <td>{{ cours.id }}</td>
-                    <td>{{ cours.titre }}</td>
-                    <td>{{ cours.description }}</td>
+
+                    <!-- Nom du cours -->
+                    <td>{{ cours.nom }}</td>
+
+                    <!-- Description -->
+                    <td>{{ cours.description || '-' }}</td>
+
+                    <!-- Formateur -->
                     <td>
-                        {{ cours.dateDebut | date:'shortDate' }} - {{ cours.dateFin | date:'shortDate' }}
-                    </td>
-                    <td>
-                        <span *ngIf="cours.formateur">{{ cours.formateur.nom }} {{ cours.formateur.prenom }}</span>
+                        <ng-container *ngIf="cours.formateur">
+                            {{ cours.formateur.nom }} {{ cours.formateur.prenom || '' }}<br>
+                            <small class="text-muted">{{ cours.formateur.specialite || 'N/A' }}</small>
+                        </ng-container>
                         <span *ngIf="!cours.formateur" class="text-muted">Non assigné</span>
                     </td>
+
+                    <!-- Dates -->
+                    <!-- <td>
+                        <span *ngIf="cours.dateDebut && cours.dateFin">
+                            {{ cours.dateDebut | date:'shortDate' }} - {{ cours.dateFin | date:'shortDate' }}
+                        </span>
+                        <span *ngIf="!cours.dateDebut || !cours.dateFin" class="text-muted">Non défini</span>
+                    </td> -->
+
+                    <!-- Actions -->
                     <td>
-                        <!-- Assign formateur is handled in edit form or separate modal -->
                         <button class="btn btn-sm btn-outline-primary" [routerLink]="['edit', cours.id]">
                             <i class="bi bi-pencil"></i>
                         </button>
+                        <button class="btn btn-sm btn-outline-danger ms-1">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </td>
                 </tr>
+
+                <!-- Message si aucun cours -->
                 <tr *ngIf="cours_list.length === 0">
-                    <td colspan="6" class="text-center py-4 text-muted">Aucu cours trouvé.</td>
+                    <td colspan="6" class="text-center py-4 text-muted">
+                        Aucun cours trouvé.
+                    </td>
                 </tr>
             </tbody>
         </table>

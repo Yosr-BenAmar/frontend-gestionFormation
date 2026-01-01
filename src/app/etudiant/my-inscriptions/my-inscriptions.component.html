@@ -12,8 +12,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let insc of inscriptions">
-                    <td>{{ insc.cours?.titre }}</td>
-                    <td>{{ insc.dateInscription | date:'shortDate' }}</td>
+                    <td>{{ insc.cours?.nom }}</td>
+                    <!-- <td>{{ insc.dateInscription | date:'shortDate' }}</td> -->
                     <td>
                         <span *ngIf="getNote(insc.cours?.id) as note" class="badge bg-primary fs-6">{{ note.valeur
                             }}/20</span>

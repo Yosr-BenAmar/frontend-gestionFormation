@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cours, Etudiant } from 'src/app/shared/models/models';
-import { InscriptionService } from '../../services/inscription.service';
-import { EtudiantService } from '../../services/etudiant.service';
-import { CoursService } from '../../services/cours.service';
+import { InscriptionService } from 'src/app/services/inscription.service';
+import { CoursService } from 'src/app/services/cours.service';
+import { EtudiantService } from 'src/app/services/etudiant.service';
 
 @Component({
     selector: 'app-inscription-form',

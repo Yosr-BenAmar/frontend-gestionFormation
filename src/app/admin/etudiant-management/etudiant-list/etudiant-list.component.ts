@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EtudiantService } from 'src/app/services/etudiant.service';
 import { Etudiant } from 'src/app/shared/models/models';
-import { EtudiantService } from '../../services/etudiant.service';
 @Component({
     selector: 'app-etudiant-list',
     templateUrl: './etudiant-list.component.html',

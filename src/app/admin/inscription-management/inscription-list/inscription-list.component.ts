@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InscriptionService } from '../../services/inscription.service';
+import { InscriptionService } from 'src/app/services/inscription.service';
 import { Inscription } from '../../../shared/models/models';
 
 @Component({

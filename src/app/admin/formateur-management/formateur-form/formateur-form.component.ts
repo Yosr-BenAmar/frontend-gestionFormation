@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormateurService } from '../../services/formateur.service';
+import { FormateurService } from 'src/app/services/formateur.service';
 import { Role } from 'src/app/shared/models/models';
 
 @Component({
@@ -58,12 +58,12 @@ export class FormateurFormComponent implements OnInit {
         if (this.isEditMode) {
             this.formateurService.update(this.id, formateur).subscribe({
                 next: () => this.router.navigate(['/admin/formateurs']),
-                error: (e) => console.error(e)
+                error: (e: any) => console.error(e)
             });
         } else {
             this.formateurService.create(formateur).subscribe({
                 next: () => this.router.navigate(['/admin/formateurs']),
-                error: (e) => console.error(e)
+                error: (e: any) => console.error(e)
             });
         }
     }

@@ -1,19 +1,58 @@
-<div class="container mt-4">
-    <h3>Catalogue des cours</h3>
-    <div class="row">
-        <div class="col-md-4 mb-4" *ngFor="let cours of cours_list">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">{{ cours.titre }}</h5>
-                    <p class="card-text">{{ cours.description }}</p>
-                    <p class="text-muted"><small>{{ cours.dateDebut | date }} - {{ cours.dateFin | date }}</small></p>
-                    <p class="text-info" *ngIf="cours.formateur"><small>Formateur: {{ cours.formateur.nom }}</small></p>
-                    <button class="btn btn-outline-primary w-100" (click)="enroll(cours.id)">S'inscrire</button>
-                </div>
-            </div>
+<div class="catalog-page">
+    <div class="catalog-wrapper">
+        <!-- Header -->
+        <div class="catalog-header">
+            <h1>Catalogue des cours</h1>
+            <p>Consultez les cours disponibles et inscrivez-vous</p>
         </div>
-        <div class="col-12" *ngIf="cours_list.length === 0">
-            <div class="alert alert-warning">Aucun cours disponible.</div>
+
+        <!-- Grid -->
+        <div class="catalog-grid">
+
+            <div class="course-card" *ngFor="let cours of cours_list">
+
+                <!-- Title -->
+                <div class="course-title">
+                    {{ cours.nom }}
+                </div>
+
+                <!-- Description -->
+                <div class="course-description" *ngIf="cours.description; else noDesc">
+                    {{ cours.description }}
+                </div>
+
+                <ng-template #noDesc>
+                    <div class="course-description muted">
+                        Aucune description disponible.
+                    </div>
+                </ng-template>
+
+                <!-- Meta -->
+                <div class="course-meta" *ngIf="cours.formateur">
+                    <div class="meta-item">
+                        <span class="label">Formateur</span>
+                        <span class="value">{{ cours.formateur.nom }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Spécialité</span>
+                        <span class="value">{{ cours.formateur.specialite || '—' }}</span>
+                    </div>
+                </div>
+
+                <!-- Action -->
+                <div class="course-action">
+                    <button (click)="enroll(cours.id)">
+                        S’inscrire
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Empty -->
+            <div class="empty-state" *ngIf="cours_list.length === 0">
+                Aucun cours disponible pour le moment.
+            </div>
+
         </div>
     </div>
 </div>

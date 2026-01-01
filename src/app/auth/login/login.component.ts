@@ -46,31 +46,32 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
+        if (this.loginForm.invalid) return;
 
         this.loading = true;
+
         this.authService.login(this.f['email'].value, this.f['password'].value)
             .pipe(first())
             .subscribe({
-                next: (user) => {
-                    // Redirect based on role
-                    if (user.role === Role.ADMIN) {
-                        this.router.navigate(['/admin']);
-                    } else if (user.role === Role.FORMATEUR) {
-                        this.router.navigate(['/formateur']);
-                    } else if (user.role === Role.ETUDIANT) {
-                        this.router.navigate(['/etudiant']);
-                    } else {
-                        this.router.navigate([this.returnUrl]);
+                next: user => {
+                    // redirection selon rôle
+                    switch (user.role) {
+                        case Role.ADMIN:
+                            this.router.navigate(['/admin']); // tu traiteras plus tard
+                            break;
+                        case Role.ETUDIANT:
+                            this.router.navigate(['/etudiant']);
+                            break;
+                        case Role.FORMATEUR:
+                            this.router.navigate(['/formateur']);
+                            break;
                     }
                 },
-                error: error => {
-                    this.error = error.error?.message || 'Login failed';
+                error: err => {
+                    this.error = err.error?.message || 'Login échoué';
                     this.loading = false;
                 }
             });
     }
+
 }

@@ -1,0 +1,128 @@
+/* ===== GLOBAL ===== */
+.dashboard {
+    min-height: 100vh;
+    background: #f4f6f9;
+    padding: 2rem;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-left h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.header-left span {
+    color: #2563eb;
+}
+
+.header-left p {
+    color: #6b7280;
+    margin-top: 0.3rem;
+}
+
+/* ===== CARDS GRID ===== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+    /* FIX ALIGNMENT */
+}
+
+/* ===== CARD ===== */
+.card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* FIX FOOTER ALIGN */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+/* Accent bar */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background: var(--accent);
+    border-radius: 18px 18px 0 0;
+}
+
+/* ===== CARD CONTENT ===== */
+.card-icon {
+    font-size: 2.3rem;
+    align-self: flex-end;
+    /* FIX ICON ALIGN */
+}
+
+.card-body h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.4rem;
+    color: #111827;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+/* ===== FOOTER ===== */
+.card-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.card-footer a:hover {
+    gap: 0.7rem;
+}
+
+/* ===== COLORS ===== */
+.blue {
+    --accent: #2563eb;
+}
+
+.green {
+    --accent: #16a34a;
+}
+
+.orange {
+    --accent: #ea580c;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 1.2rem;
+    }
+
+    .header-left h2 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,1 +1,143 @@
-/* cours-catalog.component.css */
+ .catalog-header h1 {
+     font-size: 2rem;
+     font-weight: 600;
+     color: #111827;
+     margin-bottom: 0.3rem;
+ }
+
+ .catalog-header p {
+     font-size: 0.95rem;
+     color: #6b7280;
+ }
+
+
+
+ /* ===== CARD ===== */
+ .course-card {
+     background: #ffffff;
+     border-radius: 14px;
+     padding: 1.6rem;
+     display: flex;
+     flex-direction: column;
+     border: 1px solid #e5e7eb;
+     transition: border-color 0.25s ease, box-shadow 0.25s ease;
+ }
+
+ .course-card:hover {
+     border-color: #c7d2fe;
+     box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+ }
+
+ /* ===== TITLE ===== */
+ .course-title {
+     font-size: 1.05rem;
+     font-weight: 600;
+     color: #111827;
+     margin-bottom: 0.6rem;
+ }
+
+ /* ===== DESCRIPTION ===== */
+ .course-description {
+     font-size: 0.9rem;
+     color: #374151;
+     line-height: 1.5;
+     margin-bottom: 1.2rem;
+ }
+
+ .course-description.muted {
+     color: #9ca3af;
+ }
+
+ /* ===== META ===== */
+ .course-meta {
+     margin-top: auto;
+     margin-bottom: 1.2rem;
+     display: grid;
+     row-gap: 0.5rem;
+ }
+
+ .meta-item {
+     display: flex;
+     justify-content: space-between;
+     font-size: 0.85rem;
+ }
+
+ .meta-item .label {
+     color: #6b7280;
+ }
+
+ .meta-item .value {
+     color: #111827;
+     font-weight: 500;
+ }
+
+ /* ===== ACTION ===== */
+ .course-action button {
+     width: 100%;
+     height: 38px;
+     border-radius: 8px;
+     border: 1px solid #2563eb;
+     background: #ffffff;
+     color: #2563eb;
+     font-size: 0.85rem;
+     font-weight: 600;
+     cursor: pointer;
+     transition: background 0.2s ease, color 0.2s ease;
+ }
+
+ .course-action button:hover {
+     background: #2563eb;
+     color: #ffffff;
+ }
+
+ /* ===== EMPTY ===== */
+ .empty-state {
+     grid-column: 1 / -1;
+     text-align: center;
+     color: #6b7280;
+     font-size: 0.9rem;
+ }
+
+ /* ===== RESPONSIVE ===== */
+ @media (max-width: 768px) {
+     .catalog-page {
+         padding: 1.8rem;
+     }
+
+     .catalog-header h1 {
+         font-size: 1.6rem;
+     }
+ }
+
+ /* PAGE */
+ .catalog-page {
+     min-height: 100vh;
+     background: #f6f7fb;
+     display: flex;
+     justify-content: center;
+     /* ✅ CENTRE HORIZONTAL */
+ }
+
+ /* WRAPPER */
+ .catalog-wrapper {
+     width: 100%;
+     max-width: 1200px;
+     /* ✅ LARGEUR PRO */
+     padding: 3rem 2rem;
+ }
+
+ /* HEADER */
+ .catalog-header {
+     text-align: center;
+     /* ✅ CENTRE TEXTE */
+     margin-bottom: 2.5rem;
+ }
+
+ /* GRID */
+ .catalog-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+     gap: 1.6rem;
+     justify-content: center;
+     /* ✅ CENTRE LA GRILLE */
+ }

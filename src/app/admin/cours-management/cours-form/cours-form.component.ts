@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Formateur } from 'src/app/shared/models/models';
-import { FormateurService } from '../../services/formateur.service';
-import { CoursService } from '../../services/cours.service';
+import { FormateurService } from 'src/app/services/formateur.service';
+import { CoursService } from 'src/app/services/cours.service';
+
 
 @Component({
     selector: 'app-cours-form',
@@ -44,8 +45,8 @@ export class CoursFormComponent implements OnInit {
             this.coursService.getById(this.id).subscribe(data => {
                 // Handle dates for input type="date"
                 let formattedData: any = { ...data };
-                if (data.dateDebut) formattedData.dateDebut = this.formatDate(data.dateDebut);
-                if (data.dateFin) formattedData.dateFin = this.formatDate(data.dateFin);
+                // if (data.dateDebut) formattedData.dateDebut = this.formatDate(data.dateDebut);
+                // if (data.dateFin) formattedData.dateFin = this.formatDate(data.dateFin);
                 // Pre-select formateur
                 if (data.formateur) formattedData.formateurId = data.formateur.id;
 
