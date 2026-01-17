@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authService: AuthService
     ) {
-        // redirect to home if already logged in
         if (this.authService.currentUserValue) {
             this.router.navigate(['/']);
         }
@@ -50,18 +49,22 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
 
-        this.authService.login(this.f['email'].value, this.f['password'].value)
-            .pipe(first())
+        this.authService.login(
+            this.f['email'].value,
+            this.f['password'].value
+        ).pipe(first())
             .subscribe({
                 next: user => {
-                    // redirection selon rôle
                     switch (user.role) {
+
                         case Role.ADMIN:
-                            this.router.navigate(['/admin']); // tu traiteras plus tard
+                            window.location.href = 'http://localhost:8080/dashboard/index';
                             break;
+
                         case Role.ETUDIANT:
                             this.router.navigate(['/etudiant']);
                             break;
+
                         case Role.FORMATEUR:
                             this.router.navigate(['/formateur']);
                             break;
@@ -73,5 +76,36 @@ export class LoginComponent implements OnInit {
                 }
             });
     }
+
+    // onSubmit() {
+    //     this.submitted = true;
+
+    //     if (this.loginForm.invalid) return;
+
+    //     this.loading = true;
+
+    //     this.authService.login(this.f['email'].value, this.f['password'].value)
+    //         .pipe(first())
+    //         .subscribe({
+    //             next: user => {
+    //                 // redirection selon rôle
+    //                 switch (user.role) {
+    //                     case Role.ADMIN:
+    //                         this.router.navigate(['/admin']); // tu traiteras plus tard
+    //                         break;
+    //                     case Role.ETUDIANT:
+    //                         this.router.navigate(['/etudiant']);
+    //                         break;
+    //                     case Role.FORMATEUR:
+    //                         this.router.navigate(['/formateur']);
+    //                         break;
+    //                 }
+    //             },
+    //             error: err => {
+    //                 this.error = err.error?.message || 'Login échoué';
+    //                 this.loading = false;
+    //             }
+    //         });
+    // }
 
 }

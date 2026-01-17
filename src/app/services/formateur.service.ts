@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { AffectationCours, Cours, Etudiant, Note } from '../shared/models/models';
-import { Observable } from 'rxjs';
+import { AffectationCours, Cours, Etudiant, Formateur, Note } from '../shared/models/models';
+import { catchError, Observable } from 'rxjs';
 import { AffectationCoursService } from './affectation-cours.service';
 
 @Injectable({ providedIn: 'root' })
 export class FormateurService {
-  apiUrl = `${environment.apiUrl}/formateurs/`;
+  apiUrl = `${environment.apiUrl}/formateurs`;
 
   constructor(private http: HttpClient) { }
 
@@ -55,5 +55,8 @@ export class FormateurService {
     // Maybe `GET /api/notes?coursId=...`?
     // I'll stick to what I can do: Create/Update. Fetching might need valid endpoint.
     return this.http.get<Note[]>(`${this.apiUrl}/notes/cours/${coursId}`); // Guessing endpoint
+  }
+  getCoursByFormateur(formateurId: number): Observable<Cours[]> {
+    return this.http.get<Cours[]>(`${this.apiUrl}/${formateurId}/cours`);
   }
 }

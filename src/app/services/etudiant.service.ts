@@ -11,6 +11,11 @@ export class EtudiantService {
   constructor(private http: HttpClient) { }
 
   getAll() { return this.http.get<any[]>(this.apiUrl); }
+  
+  getAllEtudiants() { 
+    return this.http.get<any[]>(this.apiUrl); 
+  }
+  
   getById(id: number) { return this.http.get<any>(`${this.apiUrl}/${id}`); }
   create(etudiant: any) { return this.http.post<any>(this.apiUrl, etudiant); }
   update(id: number, etudiant: any) { return this.http.put<any>(`${this.apiUrl}${id}`, etudiant); }

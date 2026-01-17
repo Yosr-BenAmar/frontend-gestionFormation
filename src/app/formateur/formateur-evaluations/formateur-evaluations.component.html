@@ -1,0 +1,33 @@
+<div class="container-fluid py-4">
+  <div class="mb-4">
+    <h3 class="page-title">Évaluations</h3>
+    <p class="page-subtitle">Création, correction et analyse des évaluations</p>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info">Chargement des évaluations...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="evaluations-container">
+    <div *ngIf="evaluations.length > 0" class="row g-4">
+      <div *ngFor="let eval of evaluations" class="col-md-6 col-lg-4">
+        <div class="evaluation-card">
+          <h5 class="eval-title">{{ eval.titre || 'Évaluation' }}</h5>
+          <p class="eval-description">{{ eval.description }}</p>
+          <div class="eval-info">
+            <span class="badge bg-info">Étudiants: {{ eval.nombreEtudiants || 0 }}</span>
+            <span class="badge bg-primary">Notes: {{ eval.nombreNotes || 0 }}</span>
+          </div>
+          <div class="eval-actions">
+            <button class="btn btn-sm btn-primary">Voir</button>
+            <button class="btn btn-sm btn-secondary">Éditer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="evaluations.length === 0 && !loading" class="alert alert-warning">
+      Aucune évaluation trouvée. 
+      <button class="btn btn-sm btn-primary">+ Créer une évaluation</button>
+    </div>
+  </div>
+</div>

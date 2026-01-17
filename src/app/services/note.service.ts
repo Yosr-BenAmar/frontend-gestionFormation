@@ -9,6 +9,11 @@ export class NoteService {
   constructor(private http: HttpClient) { }
 
   getAll() { return this.http.get<any[]>(this.apiUrl); }
+  
+  getNotes() { 
+    return this.http.get<any[]>(this.apiUrl); 
+  }
+  
   getById(id: number) { return this.http.get<any>(`${this.apiUrl}/${id}`); }
   create(note: any) { return this.http.post<any>(this.apiUrl, note); }
   update(id: number, note: any) { return this.http.put<any>(`${this.apiUrl}${id}`, note); }

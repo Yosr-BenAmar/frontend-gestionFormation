@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { FormateurDashboardComponent } from './formateur-dashboard/formateur-dashboard.component';
 import { MyCoursComponent } from './my-cours/my-cours.component';
 import { NoteManagementComponent } from './note-management/note-management.component';
+import { FormateurEtudiantsComponent } from './formateur-etudiants/formateur-etudiants.component';
+import { FormateurEvaluationsComponent } from './formateur-evaluations/formateur-evaluations.component';
 
 const routes: Routes = [
     {
@@ -13,7 +15,9 @@ const routes: Routes = [
         component: FormateurDashboardComponent,
         children: [
             { path: 'cours', component: MyCoursComponent },
-            { path: 'cours/notes/:coursId', component: NoteManagementComponent }
+            { path: 'cours/notes/:coursId', component: NoteManagementComponent },
+            { path: 'etudiants', component: FormateurEtudiantsComponent },
+            { path: 'evaluations', component: FormateurEvaluationsComponent }
         ]
     }
 ];
@@ -22,7 +26,9 @@ const routes: Routes = [
     declarations: [
         FormateurDashboardComponent,
         MyCoursComponent,
-        NoteManagementComponent
+        NoteManagementComponent,
+        FormateurEtudiantsComponent,
+        FormateurEvaluationsComponent
     ],
     imports: [
         CommonModule,

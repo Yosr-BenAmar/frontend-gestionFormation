@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Cours } from '../../shared/models/models';
 import { EtudiantService } from 'src/app/services/etudiant.service';
+import { CoursService } from 'src/app/services/cours.service';
 
 @Component({
     selector: 'app-cours-catalog',
@@ -11,20 +12,31 @@ import { EtudiantService } from 'src/app/services/etudiant.service';
 export class CoursCatalogComponent implements OnInit {
     cours_list: Cours[] = [];
 
-    constructor(
+    constructor(private coursService: CoursService,
         private etudiantService: EtudiantService,
         private authService: AuthService
     ) { }
+    // ngOnInit(): void {
+    //     this.etudiantService.getAvailableCours().subscribe({
+    //         next: data => {
+    //             console.log('Cours récupérés depuis le back :', data);
+    //             this.cours_list = data;
+    //         },
+    //         // error: e => console.error('Erreur GET cours', e)
+    //     });
+    // }
+
     ngOnInit(): void {
-        this.etudiantService.getAvailableCours().subscribe({
+        this.coursService.getAll().subscribe({
             next: data => {
                 console.log('Cours récupérés depuis le back :', data);
                 this.cours_list = data;
             },
-            error: e => console.error('Erreur GET cours', e)
+            error: err => {
+                console.error('Erreur GET cours', err);
+            }
         });
     }
-
     enroll(coursId: number | undefined): void {
         if (!coursId) return;
         const user = this.authService.currentUserValue; // ton utilisateur connecté

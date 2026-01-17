@@ -12,19 +12,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cours of coursList">
-                    <td>{{ cours.id }}</td>
-                    <td>{{ cours.nom }}</td>
-                    <td>{{ cours.description || '-' }}</td>
-                    <!-- <td>
-                        {{ cours.dateDebut ? (cours.dateDebut | date:'shortDate') : '-' }}
-                        -
-                        {{ cours.dateFin ? (cours.dateFin | date:'shortDate') : '-' }}
-                    </td> -->
-                </tr>
-                <tr *ngIf="coursList.length === 0">
-                    <td colspan="4" class="text-center py-4 text-muted">Aucun cours assigné</td>
-                </tr>
+                <div *ngIf="coursList">
+                    <tr *ngFor="let cours of coursList">
+                        <td>{{ cours.id }}</td>
+                        <td>{{ cours.nom }}</td>
+                        <td>{{ cours.description || '-' }}</td>
+                    </tr>
+                    <tr *ngIf="coursList.length === 0">
+                        <td colspan="4" class="text-center py-4 text-muted">Aucun cours assigné</td>
+                    </tr>
+                </div>
+
             </tbody>
         </table>
     </div>

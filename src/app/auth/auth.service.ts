@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { User, Role } from 'src/app/shared/models/models';
 import { delay, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -43,3 +44,39 @@ export class AuthService {
         this.currentUserSubject.next(null);
     }
 }
+// @Injectable({ providedIn: 'root' })
+// export class AuthService {
+
+//     private currentUserSubject: BehaviorSubject<User | null>;
+//     public currentUser: Observable<User | null>;
+
+//     private apiUrl = 'http://localhost:8080/api/auth';
+
+//     constructor(private http: HttpClient) {
+//         this.currentUserSubject = new BehaviorSubject<User | null>(
+//             JSON.parse(localStorage.getItem('currentUser') || 'null')
+//         );
+//         this.currentUser = this.currentUserSubject.asObservable();
+//     }
+
+//     public get currentUserValue(): User | null {
+//         return this.currentUserSubject.value;
+//     }
+
+//     login(email: string, password: string): Observable<User> {
+//         return this.http.post<User>(`${this.apiUrl}/login`, { email, password })
+//             .pipe(
+//                 map(user => {
+//                     localStorage.setItem('currentUser', JSON.stringify(user));
+//                     this.currentUserSubject.next(user);
+//                     return user;
+//                 })
+//             );
+//     }
+
+//     logout(): void {
+//         localStorage.removeItem('currentUser');
+//         this.currentUserSubject.next(null);
+//         window.location.href = '/login';
+//     }
+// }

@@ -1,0 +1,42 @@
+<div class="dashboard container-fluid py-4">
+  
+  <!-- Header -->
+  <div class="dashboard-header mb-4">
+    <div>
+      <h2 class="dashboard-title">
+        Bonjour, <span>{{ user?.nom }}</span>
+      </h2>
+      <p class="dashboard-subtitle">
+        Tableau de bord formateur – gestion pédagogique
+      </p>
+    </div>
+  </div> 
+  <div class="row g-4">
+    <div
+      class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+      *ngFor="let card of cards"
+    >
+      <div class="dashboard-card" [ngClass]="card.color">
+        
+        <div class="card-top">
+          <div class="card-icon">{{ card.icon }}</div>
+        </div>
+
+        <div class="card-content">
+          <h5 class="card-title">{{ card.title }}</h5>
+          <p class="card-text">{{ card.description }}</p>
+        </div>
+
+        <div class="card-footer">
+          <a [routerLink]="card.link" class="card-action">
+            Accéder
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { AffectationCours, Cours } from '../../shared/models/models';
+import { Cours } from '../../shared/models/models';
 import { AuthService } from 'src/app/auth/auth.service';
 import { FormateurService } from 'src/app/services/formateur.service';
 
@@ -11,8 +10,7 @@ import { FormateurService } from 'src/app/services/formateur.service';
 })
 export class MyCoursComponent implements OnInit {
 
-    coursList: Cours[] = [];
-    affectations: AffectationCours[] = [];
+    coursList: Cours[] = []; // tableau vide par défaut
 
     constructor(
         private formateurService: FormateurService,
@@ -22,25 +20,10 @@ export class MyCoursComponent implements OnInit {
     ngOnInit(): void {
         const user = this.authService.currentUserValue;
         if (user && user.id) {
-            this.formateurService.getMesCours(user.id).subscribe({
-                next: (data) => {
-                    console.log('Cours du formateur:', data);
-                    this.coursList = data;
-                },
-                error: (e) => console.error('Erreur chargement des cours:', e)
+            this.formateurService.getCoursByFormateur(user.id).subscribe({
+                next: (data: Cours[]) => { this.coursList = data; console.log("list", this.coursList); },
+                error: (err) => console.error('Erreur chargement des cours:', err)
             });
         }
     }
-    // ngOnInit(): void {
-    //     const user = this.authService.currentUserValue;
-    //     if (user && user.id) {
-    //         this.formateurService.getMyAffectations(user.id).subscribe({
-    //             next: data => {
-    //                 console.log('Affectations récupérées:', data);
-    //                 this.affectations = data;
-    //             },
-    //             error: e => console.error('Erreur chargement affectations', e)
-    //         });
-    //     }
-    // }
 }
